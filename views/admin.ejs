@@ -1,0 +1,118 @@
+<html>
+    <head>
+        <!--BOOTSTRAP-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <!--JQUERY-->
+        <script type="text/javascript" src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+        <!--CSS-->
+        <link href="admin.css" rel="stylesheet">
+        <!--SWEETALERT-->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    </head>
+    <body>
+        <center>
+            <h1>ADMIN</h1>
+            <input class="searchInput input" type="text">
+            <input class="searchButton btn btn-outline-dark" type="button" value="Search" />
+            <div class="phonesDiv">
+
+            </div>
+        </center>
+    </body>
+        
+<script>
+var phones = [];
+$(document).ready(()=>{
+
+    $(".searchInput").focus();  
+    $(".searchInput").enterPress(()=> $(".searchButton").trigger("click"))
+    $(".searchButton").on("click",function(){
+        $.ajax({
+            type:"POST",
+            url:"/searchForDevice",
+            data:{
+                deviceName: $(".searchInput").val()
+            },
+            success:function(data){
+                searchAPISuccess(data)
+            }
+        });
+    });
+
+});
+
+        
+
+
+
+
+
+//FUNCTIONS
+
+//PRESS ENTER IN INPUT
+$.fn.enterPress = function (fnc) {
+    return this.each(function () {
+        $(this).keypress(function (ev) {
+            var keycode = (ev.keyCode ? ev.keyCode : ev.which);
+            if (keycode == '13') {
+                fnc.call(this, ev);
+            }
+        })
+    })
+}
+
+//SAVE NEW PHONE TO DATABASE
+function searchAPISuccess(data){
+    console.log(data.phones)
+    $(".phonesDiv").html("");
+    if(data.phones.status == "error"){
+        $(".phonesDiv").append("<h3> NO DATA FOUND </h3> <br/>")
+    } else {
+        data.phones.reverse();
+        data.phones.forEach(function(phone,index){
+            $(".phonesDiv").append("<h3 class='phoneH3' style='cursor:pointer;' id='"+ index +"'>" + phone.DeviceName + "</h3><h4>" + phone.announced + "</h4><br/>")
+        });
+        phones = data.phones;
+        phoneH3Clicked()
+
+    }
+}
+function phoneH3Clicked(){
+    $(".phoneH3").on("click",function(){
+        let hanyadik = parseInt($(this).attr("id"))
+        Swal.fire({
+            title: phones[hanyadik].DeviceName,
+            html:"Brand: " + phones[hanyadik].Brand + "<br/> Announced: " +  phones[hanyadik].announced + "<br/> OS: " + phones[hanyadik].os,
+            input: 'text',
+            inputPlaceholder: 'Picture URL',
+            showCancelButton: true,
+            confirmButtonText: 'Save'
+            }).then((input) => {
+                if (input.value) {
+                    saveToDatabase(phones[hanyadik],input.value)
+                } else {
+                    Swal.fire('Empty URL!','','error')
+                }
+        });
+    });
+}
+function saveToDatabase(dataToSave,pictureUrl){
+    dataToSave.pictureURL = pictureUrl;
+    $.ajax({
+        type:"POST",
+        url:"/saveToDB",
+        data:{
+            phone:dataToSave
+        },
+        success:function(dataBack){
+            Swal.fire(dataBack.phoneName + " elmentve",'','success')
+        },
+        error:function(){
+            Swal.fire('Try again later!','','error')
+        }
+    })
+}
+
+
+</script>
+</html>

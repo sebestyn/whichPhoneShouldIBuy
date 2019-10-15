@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <!--JQUERY-->
+        <script type="text/javascript" src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+        <!--SWEETALERT-->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    </head>
+    <body>
+
+		
+	</body>
+        
+<script>
+
+passwordSwal()        
+
+function passwordSwal(){
+    Swal.fire({
+        title: 'Admin password',
+        input: 'password',
+        inputAttributes: {
+            autocapitalize: 'off'
+        },
+        showCancelButton: true,
+        cancelButtonText:"Back",
+        confirmButtonText: 'Login',
+        showLoaderOnConfirm: true,
+        allowOutsideClick: false,
+        preConfirm: (login) => {
+            $.ajax({
+                type:"POST",
+                url:"/admin",
+                data:{
+                    pw:login
+                },
+                success: function(data){
+                    console.log(data.success)
+                    if(data.success){
+                        window.location.href = "/admin"
+                    } else {
+                        passwordSwal()
+                    }
+                }
+            });
+        }
+    });
+}
+
+        
+</script>
+</html>
