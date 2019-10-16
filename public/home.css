@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:700&display=swap');
+
+.title{
+    cursor: url("images/circle.png"), default;
+}
+
+.titleSpan{
+    margin: 0.5rem;
+}
+.title{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 100px;
+    color:#030762;
+}
+.startButton{
+    text-decoration: none;
+    background: white;
+    color: #030762 ;
+    border:solid 5px #030762;
+    border-radius: 15px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+    padding: .5rem 3rem;
+    margin-top: 3rem;
+    -webkit-transition: .5s; /* For Safari 3.1 to 6.0 */
+    transition: .5s;
+}
+.startButton:hover{
+    background: #030762;
+    color: white ;
+}
+
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Opera and Firefox */
+  }

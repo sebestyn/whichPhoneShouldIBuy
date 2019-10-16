@@ -1,15 +1,51 @@
 <html>
     <head>
+        <title>Which Phone...</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="shortcut icon" href="/pic/logo.png">
+
+        <!--BOOTSTRAP-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <!--JQUERY-->
         <script type="text/javascript" src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+        <!--CSS-->
+        <link href="home.css" rel="stylesheet">
+        <!--SWEETALERT-->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+        <!--FONT AWESOME-->
+        <script src="https://kit.fontawesome.com/6e85f854c4.js" crossorigin="anonymous"></script>
     </head>
     <body>
-
-		home
+        <center>
+            <div class="container titleSpan">
+                    <h1 class="title noselect">WHICH PHONE SHOULD I BUY?</h1>
+                    <button class="startButton noselect">START <i class="fas fa-angle-double-right"></i></button>
+            </div> 
+        </center>
 	</body>
         
 <script>
-        
-        
+
+
+responsiveCss()        
+$(window).on("resize",function(){
+    responsiveCss()
+})
+
+//FUNCTION
+function responsiveCss(){
+    $(".titleSpan").css({
+        "margin-top": window.innerHeight/5
+    });
+    $(".title").css({
+        "font-size" : window.innerHeight/5.8+"px"
+    });
+    $(".startButton").css({
+        "font-size" : window.innerHeight/19.3+"px"
+    });
+}
+
 </script>
 </html>
