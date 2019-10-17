@@ -18,16 +18,43 @@
         <script src="https://kit.fontawesome.com/6e85f854c4.js" crossorigin="anonymous"></script>
     </head>
     <body>
-        <center>
-            <div class="container titleSpan">
-                    <h1 class="title noselect">WHICH PHONE SHOULD I BUY?</h1>
-                    <button class="startButton noselect">START <i class="fas fa-angle-double-right"></i></button>
-            </div> 
-        </center>
+        <div class="rotateDeviceDiv hide">
+            <i style="font-size: 10rem;" class="fas fa-mobile-alt rotateDeviceIcon"></i>
+            <h4>Rotate your phone!</h4>
+        </div>
+        <div class="area" >
+            <ul class="circles">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div >
+        <div class="titleSpan">
+                <h1 class="title noselect">WHICH PHONE SHOULD I BUY?</h1>
+                <button class="startButton noselect">START <i class="fas fa-angle-double-right"></i></button>
+        </div> 
+        
+        
+            
+
+
 	</body>
         
 <script>
 
+//IF MOBILE AND PORTRAIT ORIANTATION ALERT TO CHANGE TO LANDSCAPE ORIANTATION
+mobileViewport();
+
+$('button').click(function(){
+    alert(2)
+});
 
 responsiveCss()        
 $(window).on("resize",function(){
@@ -35,17 +62,53 @@ $(window).on("resize",function(){
 })
 
 //FUNCTION
-function responsiveCss(){
-    $(".titleSpan").css({
-        "margin-top": window.innerHeight/5
-    });
-    $(".title").css({
-        "font-size" : window.innerHeight/5.8+"px"
-    });
-    $(".startButton").css({
-        "font-size" : window.innerHeight/19.3+"px"
-    });
-}
+    //CHANGE TEXT SIZES WITH PAGE
+    function responsiveCss(){
+        $(".title").css({
+            "font-size" : (window.innerHeight+window.innerWidth)/18+"px"
+        });
+        $(".startButton").css({
+            "font-size" : (window.innerHeight+window.innerWidth)/45+"px"
+        });
+    }
+
+    //MOBILE VIEWPORT ALERT
+    function mobileViewport(){
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+                if(window.innerHeight < window.innerWidth){
+                    landscapeCss()
+                } else if(window.innerHeight > window.innerWidth){
+                    portraitCss();
+                } else {
+                    alert("ERROR")
+                }
+                window.addEventListener("orientationchange", function() {
+                    setTimeout(function(){
+                        if(window.innerHeight < window.innerWidth){
+                            landscapeCss()
+                        } else if(window.innerHeight > window.innerWidth){
+                            portraitCss();
+                        } else {
+                            alert("ERROR")
+                        }
+                    },50);                    
+                }, false);
+        }
+    }
+    function portraitCss(){
+        $(".area").css({"opacity":"0.5"});
+        $(".titleSpan").css({"opacity":"0.5"})
+        $(".rotateDeviceDiv").fadeIn();
+        $(".rotateDeviceIcon").addClass("rotate-center");
+        $(".startButton").attr("disabled",true);
+    }
+    function landscapeCss(){
+        $(".rotateDeviceIcon").css({'transform' : 'rotate('+ -90 +'deg)'});
+        $(".area").css({"opacity":"1"});
+        $(".titleSpan").css({"opacity":"1"})
+        $(".rotateDeviceDiv").fadeOut();
+        $(".rotateDeviceIcon").removeClass("rotate-center");
+    }
 
 </script>
 </html>
