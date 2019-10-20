@@ -110,5 +110,98 @@ $(window).on("resize",function(){
         $(".rotateDeviceIcon").removeClass("rotate-center");
     }
 
+    //SZÁMRENDSZER ÁTVÁLTÁS
+    function szamrVal (szam, mibol=10, mibe=16){
+        var szamInt  = Number(szam);
+        var mibolInt = Number(mibol);
+        var mibeInt  = Number(mibe);
+        var szam2    = parseInt(szam, mibolInt);
+        eredmeny = (szam2).toString(mibeInt);
+        return eredmeny;
+    }
+
+    //BACKGROUND COLOR CHANGING
+    function backgroundColorFlow(){
+        let mennyivel = 5;
+        let min = 15;
+        let max = 115;
+
+        let redNov = false;
+        let redCsok = true;
+        let greenNov = false;
+        let greenCsok = false;
+        let blueNov = false;
+        let blueCsok = false;
+
+        let red = min;
+        let green = min;
+        let blue = max;
+
+        setInterval(()=>{
+            if(redNov){
+                if(red >= max){
+                    redNov = false;
+                    greenCsok = true;
+                } else {
+                    red += mennyivel
+                }
+            }
+            if(redCsok){
+                if(red <= min){
+                    redCsok = false;
+                    greenNov = true;
+                } else {
+                    red -= mennyivel
+                }
+            }
+            if(greenNov){
+                if(green >= max){
+                    greenNov = false;
+                    blueCsok = true;
+                } else {
+                    green += mennyivel
+                }
+            }
+            if(greenCsok){
+                if(green <= min){
+                    greenCsok = false;
+                    blueNov = true;
+                } else {
+                    green -= mennyivel;
+                }
+            }
+            if(blueNov){
+                if(blue>=max){
+                    blueNov = false;
+                    redCsok = true;
+                } else {
+                    blue += mennyivel
+                }
+            }
+            if(blueCsok){
+                if(blue<=min){
+                    blueCsok = false;
+                    redNov = true;
+                } else {
+                    blue -= mennyivel
+                }
+            }
+            let rgbColors = "rgb(" + red + "," + green + "," + blue + ")";
+            $(".area").css({"background":rgbColors});
+            if($(".startButton:hover").length == 0){
+                $(".startButton").css({"color":rgbColors, "border-color":"white"});
+            } else {
+                $(".startButton").css({"background":"#FFFFFF00","color":"white"});
+            }
+            $(".startButton").on("mouseenter",function(){
+                $(this).css({"background":"#FFFFFF00","color":"white"});
+            });
+            $(".startButton").on("mouseleave",function(){
+                $(this).css({"background":"white","color":rgbColors});
+            });
+        },1000);
+        
+    }
+    backgroundColorFlow();
 </script>
 </html>
