@@ -35,22 +35,40 @@ body{
     font-family: 'Montserrat', sans-serif;
     font-size: 80px;
     color:white;
+    margin-bottom: 2rem;
 }
 .questionAnswerDiv{
     border: 5px solid white;
-    width: 28vw;
+    width: 23vw;
     height: 20vw;
     padding: 1rem;
     float: left;
     margin: 1rem;
     border-radius: 50px;
+    -webkit-transition: background-color ease-out .2s;
+    -moz-transition: background-color ease-out .2s;
+    -o-transition: background-color ease-out .2s;
+    transition: background-color ease-out .2s;
+}
+.questionAnswerDiv:hover{
+    cursor: pointer;
 }
 .answerText{
     font-family: 'Montserrat', sans-serif;
     font-size: 40px;
     color:white;
+    text-align: center;
+    position: relative;
+    top: 45%;
+    -ms-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
-
+.answerIcon{
+    height: 3em; 
+    width: 3em;
+    margin-bottom: 1rem;
+}
 
 
 /*BACKGROUNG ANIMATION*/
