@@ -28,10 +28,21 @@ mongoose.connect("mongodb+srv://sebestyn:sebestyn@cluster0-uek7j.gcp.mongodb.net
     console.log('DATABASE CONNECTED');
 });
 
-
+//CHOOSE LANGUAGE
 app.get("/",function(req,res){
-    res.render("home.ejs")
+    res.render("choose-lang.ejs")
 });
+
+//HUNGARY HOME
+app.get("/hu",function(req,res){
+    res.render("home-hu.ejs")
+});
+
+//ENGLISH HOME
+app.get("/en",function(req,res){
+    res.render("home-en.ejs")
+});
+
 
 //LOGIN / LOGOUT
 app.get("/login",function(req,res){

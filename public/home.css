@@ -5,7 +5,7 @@ body{
     overflow: hidden;
 }
 
-.titleSpan{
+.titleDiv, .questionsDiv, .resultsDiv{
     width: 100%;
     position: absolute;
     top:10%;
@@ -29,6 +29,26 @@ body{
     margin-top: 3rem;
     -webkit-transition: .5s; /* For Safari 3.1 to 6.0 */
     transition: .5s;
+}
+
+.questionText{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 80px;
+    color:white;
+}
+.questionAnswerDiv{
+    border: 5px solid white;
+    width: 28vw;
+    height: 20vw;
+    padding: 1rem;
+    float: left;
+    margin: 1rem;
+    border-radius: 50px;
+}
+.answerText{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 40px;
+    color:white;
 }
 
 

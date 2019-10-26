@@ -4,7 +4,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="shortcut icon" href="/pic/logo.png">
+        <link rel="shortcut icon" href="/images/circle.png">
 
         <!--BOOTSTRAP-->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -36,13 +36,26 @@
                 <li></li>
             </ul>
         </div >
-        <div class="titleSpan">
+        <div class="titleDiv">
                 <h1 class="title noselect">WHICH PHONE SHOULD I BUY?</h1>
                 <button class="startButton noselect">START <i class="fas fa-angle-double-right"></i></button>
         </div> 
-        
-        
-            
+        <div class="questionsDiv hide">
+            <div class="questionDiv" id="01-question">
+                <h1 class="questionText noselect">Do you like Android or IOS?</h1>
+                <div class="questionAnswerDiv">
+                    <h1 class="answerText">ANDROID</h1>
+                </div>
+                <div class="questionAnswerDiv">
+                    <h1 class="answerText">IOS</h1>
+                </div>
+                <div class="questionAnswerDiv">
+                    <h1 class="answerText">I DONT KNOW WHAT THIS MEAN</h1>
+                </div>
+            </div>
+        </div>
+        <div class="resultsDiv hide">
+        </div>
 
 
 	</body>
@@ -52,8 +65,9 @@
 //IF MOBILE AND PORTRAIT ORIANTATION ALERT TO CHANGE TO LANDSCAPE ORIANTATION
 mobileViewport();
 
-$('button').click(function(){
-    alert(2)
+$('.startButton').click(function(){
+    $(".titleDiv").fadeOut();
+    $(".questionsDiv").fadeIn();
 });
 
 responsiveCss()        
@@ -69,6 +83,9 @@ $(window).on("resize",function(){
         });
         $(".startButton").css({
             "font-size" : (window.innerHeight+window.innerWidth)/45+"px"
+        });
+        $(".questionText").css({
+            "font-size":(window.innerHeight+window.innerWidth)/20+"px"
         });
     }
 
@@ -97,7 +114,7 @@ $(window).on("resize",function(){
     }
     function portraitCss(){
         $(".area").css({"opacity":"0.5"});
-        $(".titleSpan").css({"opacity":"0.5"})
+        $(".titleDiv").css({"opacity":"0.5"})
         $(".rotateDeviceDiv").fadeIn();
         $(".rotateDeviceIcon").addClass("rotate-center");
         $(".startButton").attr("disabled",true);
@@ -105,20 +122,11 @@ $(window).on("resize",function(){
     function landscapeCss(){
         $(".rotateDeviceIcon").css({'transform' : 'rotate('+ -90 +'deg)'});
         $(".area").css({"opacity":"1"});
-        $(".titleSpan").css({"opacity":"1"})
+        $(".titleDiv").css({"opacity":"1"})
         $(".rotateDeviceDiv").fadeOut();
         $(".rotateDeviceIcon").removeClass("rotate-center");
     }
 
-    //SZÁMRENDSZER ÁTVÁLTÁS
-    function szamrVal (szam, mibol=10, mibe=16){
-        var szamInt  = Number(szam);
-        var mibolInt = Number(mibol);
-        var mibeInt  = Number(mibe);
-        var szam2    = parseInt(szam, mibolInt);
-        eredmeny = (szam2).toString(mibeInt);
-        return eredmeny;
-    }
 
     //BACKGROUND COLOR CHANGING
     function backgroundColorFlow(){
