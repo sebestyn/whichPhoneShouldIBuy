@@ -11,21 +11,56 @@
     </head>
     <body>
         <center>
-            <a href="/logout" class="btn btn-outline-dark" style="margin: 1rem;">Logout</a><br/>
-            <h1>ADMIN</h1>
-            <input class="searchInput input" type="text">
-            <input class="searchButton btn btn-outline-dark" type="button" value="Search" />
-            <div class="phonesDiv"></div>
+            
+            <h1 class="adminTitle">
+                ADMIN
+                <a href="/logout" class="btn btn-outline-dark" style="margin: .5rem;">Logout</a>
+            </h1>
+            <button class="addNewDivButton btn btn-outline-dark">Add new</button>
+            <button class="savedPhonesDivButton btn btn-outline-dark">Saved phones</button>
+            <div class="container addNewDeviceDiv margin2">
+                <h2>Add new phones</h2>
+                <input class="searchInput input" type="text">
+                <input class="searchButton btn btn-outline-dark" type="button" value="Search" />
+                <div class="phonesDiv"></div>
+            </div>
+            <div class="container margin2 savedDevicesDiv hide">
+                <h2>Saved phones</h2>
+                <table>
+                <% savedPhones.forEach(function(phone){ %>
+                    <tr>
+                        <td> <img style="width:7rem" src="<%= phone.pictureURL %>"> </td>
+                        <td> <%= phone.Brand %> </td>
+                        <td> <%= phone.DeviceName %> </td>
+                        <td> <%= phone.announced %> </td>
+                    </tr>
+                    
+                <% }); %>
+                </table>
+            </div>
+            
         </center>
     </body>
         
 <script>
 //VÁLTOZÓK
 var phones = [];
+var savedPhones = <%- JSON.stringify(savedPhones) %>;
+
+console.log(savedPhones)
+
 //DOCUMENT READY
 $(document).ready(()=>{
-    //FOCUS TO INPUT
-    $(".searchInput").focus();
+    //SEARCH SAVED DIVS CHANGING BUTTONS
+    $(".savedPhonesDivButton").on("click",function(){
+        $(".addNewDeviceDiv").addClass("hide");
+        $(".savedDevicesDiv").removeClass("hide")
+    });
+    $(".addNewDivButton").on("click",function(){
+        $(".savedDevicesDiv").addClass("hide");
+        $(".addNewDeviceDiv").removeClass("hide")
+    });
+
     //PRESS ENTER LISTENER
     $(".searchInput").enterPress(()=> $(".searchButton").trigger("click"));
     //SEARCH FOR PHONES BUTTON
@@ -75,22 +110,30 @@ $(document).ready(()=>{
             let hanyadik = parseInt($(this).attr("id"))
             Swal.fire({
                 title: phones[hanyadik].DeviceName,
-                html:"Brand: " + phones[hanyadik].Brand + "<br/> Announced: " +  phones[hanyadik].announced + "<br/> OS: " + phones[hanyadik].os,
-                input: 'text',
-                inputPlaceholder: 'Picture URL',
+                html:"Brand: " + phones[hanyadik].Brand + "<br/> Announced: " +  phones[hanyadik].announced + "<br/> OS: " + phones[hanyadik].os +
+                     '<input placeholder="Picture URL" id="pictureUrl" class="swal2-input">' +
+                     '<input placeholder="Shop URL" id="shopUrl" class="swal2-input">',
                 showCancelButton: true,
-                confirmButtonText: 'Save'
+                confirmButtonText: 'Save',
+                preConfirm: () => {
+                    return [
+                    $('#pictureUrl').val(),
+                    $('#shopUrl').val()
+                    ]
+                }
                 }).then((input) => {
+                    console.log(input)
                     if (input.value) {
-                        saveToDatabase(phones[hanyadik],input.value)
-                    } else {
+                        saveToDatabase(phones[hanyadik],input.value[0],input.value[1])
+                    } else if(input.value[0] == "" || input.value[1] == "") {
                         Swal.fire('Empty URL!','','error')
                     }
             });
         });
     }
-    function saveToDatabase(dataToSave,pictureUrl){
+    function saveToDatabase(dataToSave,pictureUrl,shopURL){
         dataToSave.pictureURL = pictureUrl;
+        dataToSave.shopURL = shopURL;
         $.ajax({
             type:"POST",
             url:"/saveToDB",

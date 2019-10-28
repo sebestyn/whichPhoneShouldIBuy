@@ -4,6 +4,7 @@ const deviceSchema = new mongoose.Schema({
     DeviceName: String,
     Brand: String,
     pictureURL:String,
+    shopURL:String,
     technology: String,
     gprs: String,
     edge: String,

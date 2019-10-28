@@ -70,7 +70,13 @@ app.get("/logout",function(req,res){
     //MAIN PAGE
     app.get("/admin",function(req,res){
         if(logedIn){
-            res.render("admin.ejs");
+            deviceDB.find({},function(err,data){
+                if(err){
+                    console.log(err)
+                } else {
+                    res.render("admin.ejs",{savedPhones:data});
+                }
+            });
         } else {
             res.redirect("/login")
         }
