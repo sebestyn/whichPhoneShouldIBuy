@@ -113,18 +113,18 @@
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-4">
-                            <div class="questionAnswerDiv" name="normal">
+                            <div class="questionAnswerDiv" name="small">
                                 <h1 class="answerText">
                                     <svg class="answerIcon" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="mobile-alt" class="svg-inline--fa fa-mobile-alt fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M272 0H48C21.5 0 0 21.5 0 48v416c0 26.5 21.5 48 48 48h224c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48zM160 480c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm112-108c0 6.6-5.4 12-12 12H60c-6.6 0-12-5.4-12-12V60c0-6.6 5.4-12 12-12h200c6.6 0 12 5.4 12 12v312z"></path></svg>
-                                    <br>Normal
+                                    <br>Small
                                 </h1>
                             </div>
                         </div>
                         <div class="col-4">
-                            <div class="questionAnswerDiv" name="big">
+                            <div class="questionAnswerDiv" name="normal">
                                 <h1 class="answerText">
                                     <svg class="answerIcon" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="tablet-alt" class="svg-inline--fa fa-tablet-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M400 0H48C21.5 0 0 21.5 0 48v416c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48zM224 480c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm176-108c0 6.6-5.4 12-12 12H60c-6.6 0-12-5.4-12-12V60c0-6.6 5.4-12 12-12h328c6.6 0 12 5.4 12 12v312z"></path></svg>
-                                    <br>Big
+                                    <br>Normal
                                 </h1>
                             </div>
                         </div>
@@ -279,7 +279,7 @@
             </div>
             <!--10. QUESTION - PAY-->
             <div class="questionDiv hide" id="10-question">
-                    <h1 class="questionText noselect">DO YOU WANT TO PAY WITH YOUR PHONE?</h1>
+                    <h1 class="questionText noselect">?????</h1>
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-4">
@@ -332,7 +332,6 @@ $(window).on("resize",function(){
     responsiveCss()
 })
 
-
 //ANSWER DIV HOVER
 $(".questionAnswerDiv").hover(function(){
     $(this).css({"background-color":"white"});
@@ -342,14 +341,47 @@ $(".questionAnswerDiv").hover(function(){
     $(this).find(".answerText").css({"color":"white"});
 });
 
-//ANSWER DIV CLICK
+//ANSWER DIV CLICK + NEXT QUESTION
 $(".questionAnswerDiv").on("click",function(){
     resultsArray.push($(this).attr("name"));
     hanyadikKerdes++;
     $("#"+(hanyadikKerdes-1).toString()+"-question").fadeOut(300,function(){
             $("#"+hanyadikKerdes+"-question").fadeIn(800);
     });
+
+    //SEND DATA TO BACKEND 
+    if(hanyadikKerdes == 11){
+        $.ajax({
+            type:"POST",
+            url:"/data",
+            dataType:"json",
+            data:{
+                arr:resultsArray
+            },
+            success:function(back){
+                console.log(back)
+            },
+            error:function(){
+
+            }
+        });
+    }
 });
+$.ajax({
+            type:"POST",
+            url:"/data",
+            dataType:"json",
+            data:{
+                arr:resultsArray
+            },
+            success:function(back){
+                console.log(back)
+            },
+            error:function(){
+
+            }
+        });
+
 
 //FUNCTION
     //CHANGE TEXT SIZES WITH PAGE
@@ -410,7 +442,8 @@ $(".questionAnswerDiv").on("click",function(){
 
     //BACKGROUND COLOR CHANGING
     function backgroundColorFlow(){
-        let mennyivel = 10;
+        let changeTime = 100;
+        let mennyivel = 1;
         let min = 15;
         let max = 115;
 
@@ -487,7 +520,7 @@ $(".questionAnswerDiv").on("click",function(){
             $(".startButton").on("mouseleave",function(){
                 $(this).css({"background":"white","color":backgroundColors});
             });
-        },1500);
+        },changeTime);
         
     }
 </script>

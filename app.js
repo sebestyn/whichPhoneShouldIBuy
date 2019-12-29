@@ -104,18 +104,38 @@ app.get("/logout",function(req,res){
     });
 
 
-/*
-fonoapi.getDevices(function(queryString, data){
-    var newPhone = new deviceDB(data[0]);
-    newPhone.save(function (err) {
-        if (err) return handleError(err);
-        console.log("MENTVE")
+//CALCULATE BEST PHONES
+app.post("/data",function(req,res){
+    var wantSpecs = req.body.arr;
+    deviceDB.find({},function(err,data){if(err){console.log(1)}
+    else {
+            
+            let allPhones = data;
+            let bestPhone = {_doc:{point:0}};
+
+            for (phone of allPhones){   
+                           
+                let checkingPhonePoint = calculatePhonePoint(wantSpecs, phone)
+                
+                if(checkingPhonePoint > bestPhone._doc.point ){
+                    bestPhone = Object.assign({}, phone); ;
+                    bestPhone._doc.point = checkingPhonePoint
+                }
+            }
+            console.log(bestPhone._doc)
+
+            res.send({phone:bestPhone._doc})
+        }
     });
-}, "iphone X");
-*/
+});
 
 
+//FUNCTIONS
 
+//CALCULATE PHONE POINT
+function calculatePhonePoint(wantSpecs, phone){
+    return Math.floor(Math.random() * 11)
+}
 
 
 
