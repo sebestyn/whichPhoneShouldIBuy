@@ -1,11 +1,17 @@
 <html>
     <head>
+        <title>Admin</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="shortcut icon" href="/images/circle.png">
+
         <!--BOOTSTRAP-->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <!--JQUERY-->
         <script type="text/javascript" src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
         <!--CSS-->
-        <link href="admin.css" rel="stylesheet">
+        <link href="/admin.css" rel="stylesheet">
         <!--SWEETALERT-->
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     </head>
@@ -26,13 +32,31 @@
             </div>
             <div class="container margin2 savedDevicesDiv hide">
                 <h2>Saved phones</h2>
-                <table>
+                <table border="1"> 
+                    <tr>
+                        <td> PICTURE </td>
+                        <td> BRAND </td>
+                        <td> NAME </td>
+                        <td> DATE </td>
+                        <td> SIZE </td>
+                        <td> CPU </td>
+                        <td> RAM </td>
+                        <td> BATTERY </td>
+                        <td> PRICE </td>
+                        <td> RESOLUTION </td>
+                    </tr>
                 <% savedPhones.forEach(function(phone){ %>
                     <tr>
-                        <td> <img style="width:7rem" src="<%= phone.pictureURL %>"> </td>
-                        <td> <%= phone.Brand %> </td>
-                        <td> <%= phone.DeviceName %> </td>
+                        <td> <img style="max-width:7rem; max-height: 7rem;" src="<%= phone.pictureURL %>"> </td>
+                        <td> <%= phone.brand %> </td>
+                        <td> <%= phone.deviceName %> </td>
                         <td> <%= phone.announced %> </td>
+                        <td> <%= phone.size %> </td>
+                        <td> <%= phone.cpu %> </td>
+                        <td> <%= phone.ram %> </td>
+                        <td> <%= phone.battery %> </td>
+                        <td> <%= phone.price %> </td>
+                        <td> <%= phone.resolution %> </td>
                     </tr>
                     
                 <% }); %>
@@ -98,7 +122,7 @@ $(document).ready(()=>{
         } else {
             data.phones.reverse();
             data.phones.forEach(function(phone,index){
-                $(".phonesDiv").append("<h3 class='phoneH3' style='cursor:pointer;' id='"+ index +"'>" + phone.DeviceName + "</h3><h4>" + phone.announced + "</h4><br/>")
+                $(".phonesDiv").append("<h3 class='phoneH3' style='cursor:pointer;' id='"+ index +"'>" + phone.deviceName + "</h3><h4>" + phone.announced + "</h4><br/>")
             });
             phones = data.phones;
             phoneH3Clicked()
@@ -110,30 +134,49 @@ $(document).ready(()=>{
             let hanyadik = parseInt($(this).attr("id"))
             Swal.fire({
                 title: phones[hanyadik].DeviceName,
-                html:"Brand: " + phones[hanyadik].Brand + "<br/> Announced: " +  phones[hanyadik].announced + "<br/> OS: " + phones[hanyadik].os +
+                html:"Name:" + phones[hanyadik].deviceName +
+                     "<br/>Brand: " + phones[hanyadik].brand + 
+                     "<br/> Announced: " +  phones[hanyadik].announced + 
+                     "<br/> OS: " + phones[hanyadik].os +
+                     "<br/> Size: " + phones[hanyadik].size + 
+                     "<br/> cpu: " + phones[hanyadik].cpu + 
+                     "<br/> ram: " + phones[hanyadik].ram + 
+                     "<br/> battery: " + phones[hanyadik].battery + 
+                     "<br/> sim: " + phones[hanyadik].sim + 
+                     "<br/> screenType: " + phones[hanyadik].screenType + 
+                     "<br/> resolution: " + phones[hanyadik].resolution + 
+                     "<br/> nfc: " + phones[hanyadik].nfc + 
+                     "<br/> price: " + phones[hanyadik].price + 
+                     '<input placeholder="Price" id="priceInput" class="swal2-input">' +
                      '<input placeholder="Picture URL" id="pictureUrl" class="swal2-input">' +
                      '<input placeholder="Shop URL" id="shopUrl" class="swal2-input">',
                 showCancelButton: true,
                 confirmButtonText: 'Save',
                 preConfirm: () => {
                     return [
-                    $('#pictureUrl').val(),
-                    $('#shopUrl').val()
+                        $('#pictureUrl').val(),
+                        $('#shopUrl').val(),
+                        $("#priceInput").val()
                     ]
                 }
                 }).then((input) => {
                     console.log(input)
                     if (input.value) {
-                        saveToDatabase(phones[hanyadik],input.value[0],input.value[1])
+                        saveToDatabase(phones[hanyadik],input.value[0],input.value[1],input.value[2])
                     } else if(input.value[0] == "" || input.value[1] == "") {
                         Swal.fire('Empty URL!','','error')
                     }
             });
         });
     }
-    function saveToDatabase(dataToSave,pictureUrl,shopURL){
+    function saveToDatabase(dataToSave,pictureUrl,shopURL,priceInput){
         dataToSave.pictureURL = pictureUrl;
         dataToSave.shopURL = shopURL;
+        //HA KÜLÖN ADTA MEG AZ ÁRÁT
+        console.log(priceInput)
+        if(priceInput){
+            dataToSave.price = priceInput
+        }
         $.ajax({
             type:"POST",
             url:"/saveToDB",

@@ -18,3 +18,8 @@ h1{
 .margintop1{
     margin-top: 1rem;
 }
+
+td{
+    text-align: center;
+    padding: .8rem;
+}
