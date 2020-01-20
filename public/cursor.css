@@ -6,10 +6,10 @@
   z-index:10000;
 }
 .cursor--small {
-  width: 5px;
-  height: 5px;
-  left: -2.5px;
-  top: -2.5px;
+  width: 7px;
+  height: 7px;
+  left: -3.5px;
+  top: -3.5px;
   border-radius: 50%;
   z-index: 11000;   
   background: white;
@@ -25,4 +25,7 @@
 }
 *:hover{
     cursor: none;
+}
+.startButton{
+    cursor: none !important;
 }

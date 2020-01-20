@@ -91,10 +91,11 @@ $(window).on("resize",function(){
 $(".questionAnswerDiv").hover(function(){
     $(this).css({"background-color":"white"});
     $(this).find(".answerText").css({"color": backgroundColors });
+    $(".cursor--small").css("background","black");
 },function(){
     $(this).css({"background-color":"#00000000"});
     $(this).find(".answerText").css({"color":"white"});
-    $(".cursor--small").css("background","red");
+    $(".cursor--small").css("background","white");
 });
 
 $("#magyarButton").on("click",function(){

@@ -5,6 +5,7 @@ body{
     overflow: hidden;
 }
 
+/*TITLE DIV - DIVS*/
 .titleDiv, .questionsDiv, .resultsDiv{
     width: 100%;
     position: absolute;
@@ -31,6 +32,7 @@ body{
     transition: .5s;
 }
 
+/*QUESTIONS DIV*/
 .questionText{
     font-family: 'Montserrat', sans-serif;
     font-size: 80px;
@@ -50,7 +52,6 @@ body{
     -o-transition: background-color ease-out .2s;
     transition: background-color ease-out .2s;
 }
-
 .answerText{
     font-family: 'Montserrat', sans-serif;
     font-size: 40px;
@@ -66,6 +67,31 @@ body{
     height: 3em; 
     width: 3em;
     margin-bottom: 1rem;
+}
+
+/*RESULT DIV*/
+.resultTitle{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 5rem;
+    color:white;
+}
+.resultPhoneText{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2rem;
+    color:white;
+}
+.resultTable{
+    margin: auto;
+    color: white;
+}
+.resultPhonePicture{
+}
+.resultTableSpecs{
+    color: white;
+    font-size: 1.8rem;
+}
+.resultsDiv tr td{
+    padding: 1rem;
 }
 
 
@@ -198,7 +224,7 @@ body{
               transform: rotate(360deg);
     }
   }
-  @keyframes rotate-center {
+@keyframes rotate-center {
     0% {
       -webkit-transform: rotate(0);
               transform: rotate(0);
@@ -207,31 +233,20 @@ body{
       -webkit-transform: rotate(360deg);
               transform: rotate(360deg);
     }
-  }
+}
   
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-  .noselect {
-    -webkit-touch-callout: none; /* iOS Safari */
-      -webkit-user-select: none; /* Safari */
-       -khtml-user-select: none; /* Konqueror HTML */
-         -moz-user-select: none; /* Old versions of Firefox */
-          -ms-user-select: none; /* Internet Explorer/Edge */
-              user-select: none; /* Non-prefixed version, currently
-                                    supported by Chrome, Opera and Firefox */
-  }
-  .hide{
-      display: none;
-  }
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Opera and Firefox */
+}
+.hide{
+    display: none;
+}

@@ -222,10 +222,12 @@ app.get("/logout",function(req,res){
 //CALCULATE BEST PHONES
 app.post("/data",function(req,res){
     var wantSpecs = req.body.arr;
+    console.log("/data")
     deviceDB.find({},function(err,data){
         if(err){
             console.log(err)
         } else {
+            console.log("DB SEARCH")
             let allPhones = data;
             let bestPhone;
             let bestPoint = 0;
@@ -258,7 +260,7 @@ function calculatePhonePoint(wantSpecs, phone){
     let batteryPSzorzo = 0.002;
     let screenP = 5;
     let screenPSzorzo = 1;
-    let payP = 15;
+    let payP = 20;
     let simP = 15;
 
     //OS
