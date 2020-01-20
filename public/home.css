@@ -50,9 +50,7 @@ body{
     -o-transition: background-color ease-out .2s;
     transition: background-color ease-out .2s;
 }
-.questionAnswerDiv:hover{
-    cursor: pointer;
-}
+
 .answerText{
     font-family: 'Montserrat', sans-serif;
     font-size: 40px;
