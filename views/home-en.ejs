@@ -12,6 +12,7 @@
         <script type="text/javascript" src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
         <!--CSS-->
         <link href="home.css" rel="stylesheet">
+        <link href="background.css" rel="stylesheet">
         <!--SWEETALERT-->
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
         <!--FONT AWESOME-->
@@ -292,8 +293,6 @@
         </div>
         <!--Result-->
         <div class="resultsDiv hide"></div>
-
-
 	</body>
         
 <script>
@@ -556,16 +555,13 @@ $(".questionAnswerDiv").on("click",function(){
             }
             backgroundColors = "rgb(" + red + "," + green + "," + blue + ")";
             $(".area").css({"background":backgroundColors});
-            if($(".startButton:hover").length == 0){
-                $(".startButton").css({"color":backgroundColors, "border-color":"white"});
-            } else {
-                $(".startButton").css({"background":"#FFFFFF00","color":"white"});
-            }
             $(".startButton").on("mouseenter",function(){
-                $(this).css({"background":"#FFFFFF00","color":"white"});
+                $(this).css({"background":"white","color":backgroundColors});
+                $(".cursor--small").css("background","black");
             });
             $(".startButton").on("mouseleave",function(){
-                $(this).css({"background":"white","color":backgroundColors});
+                $(this).css({"background":"#FFFFFF00","color":"white"});
+                $(".cursor--small").css("background","white");
             });
         },changeTime);
         
